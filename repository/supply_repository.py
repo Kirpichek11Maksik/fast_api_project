@@ -1,5 +1,5 @@
 
-from sqlalchemy import delete, select
+from sqlalchemy import delete, select, func
 from sqlalchemy.orm import Session
 
 from database.database import get_db_session
@@ -16,11 +16,14 @@ class SupplyRepository:
             supplies: list[Supply] = session.execute(select(Supply)).scalars().all()
         return supplies
 
-    def get_supply(self, suplly_id: int) -> Supply | None:
-        query = select(Supply).where(Supply.id == suplly_id)
+    def get_supply(self, supply_id: int):
+        query = select(Supply).where(Supply.id == supply_id)
+        total_price = select(func.coalesce(func.sum(Supply.quantity * Supply.unit_price), 0)).where(Supply.id == supply_id)
         with self.db_session() as session:
             supply: Supply = session.execute(query).scalar_one_or_none()
-        return supply
+            total_price: Supply = session.execute(total_price).scalar_one_or_none()
+        return supply, {"Общая сумма поставки": total_price}
+
 
     def create_supply(self, supply: Supply) -> Supply:
         with self.db_session() as session:

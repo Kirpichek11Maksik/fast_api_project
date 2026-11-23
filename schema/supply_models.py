@@ -1,7 +1,7 @@
-from datetime import date  # <-- Используем стандартный date вместо sqlalchemy.DATE
+from datetime import date  
 from decimal import Decimal
 from enum import Enum
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 
 class DeviceType(str, Enum):
@@ -30,3 +30,4 @@ class Supply(BaseModel):
         if self.device_type == DeviceType.BRACKET and self.brand != Brand.MAXIM:
             raise ValueError("Бренд кронштейнов только Maxim")
         return self
+

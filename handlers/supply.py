@@ -1,6 +1,5 @@
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, status
 from sqlalchemy import delete
-
 from database.models import Supply
 from repository.supply_repository import SupplyRepository, get_suplies_repository
 from schema.supply_models import Supply as supply_models
