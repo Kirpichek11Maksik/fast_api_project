@@ -19,6 +19,7 @@ class Device(BaseModel):
     ip: str
     ser_number: str
     capacity_device: Capacity_Device
+    supply_id: int
     
 @model_validator(mode="after")
 def validate_bracket(self):

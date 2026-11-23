@@ -11,8 +11,8 @@ class DeviceType(str, Enum):
 
 
 class Brand(str, Enum):
-    MIKROTIK = "MikroTik"
     HIKVISION = "Hikvision"
+    MIKROTIK = "MikroTik"
     DAHUA = "Dahua"
     MAXIM = "Maxim"
 

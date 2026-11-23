@@ -1,10 +1,10 @@
-.PHONY: run alembic upgrade
+.PHONY: run migrate-create upgrade
 
 run:
-	uvicorn main:app --reload
+	python -m uvicorn main:app --reload
 
 migrate-create:
-	alembic revision --autogenerate -m $(MIGRATION)
+	python -m alembic revision --autogenerate -m "$(MIGRATION)"
 
 upgrade:
-	alembic upgrade head
+	python -m alembic upgrade head

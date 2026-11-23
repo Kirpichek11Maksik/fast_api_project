@@ -1,7 +1,9 @@
 from sqlalchemy import delete, select, func
 from sqlalchemy.orm import Session
-from database.models import Device
+from database.models import Device, Supply
 from database.database import get_db_session
+
+
 
 class DeviceRepository:
 
@@ -19,8 +21,18 @@ class DeviceRepository:
             device: Device = session.execute(query).scalar_one_or_none()
         return device
 
-    def create_device(self, device:Device):
+    def create_device(self, device: Device):
         with self.db_session() as session:
+            supply = session.get(Supply, device.supply_id)
+            if supply is None:
+                raise ValueError("Поставка не найдена")
+            if (supply.device_type, supply.brand) != (device.device_type, device.brand):
+                raise ValueError("Тип или бренд не совпадает с поставкой")
+            count = session.scalar(
+                select(func.count()).select_from(Device).where(Device.supply_id == supply.id)
+            )
+            if count >= supply.quantity:
+                raise ValueError("Все устройства этой поставки уже заведены")
             session.add(device)
             session.commit()
             session.refresh(device)
@@ -33,6 +45,3 @@ class DeviceRepository:
             session.commit()
         return result.rowcount > 0
 
-def get_devices_repository() -> DeviceRepository:
-    db_session = get_db_session()
-    return DeviceRepository(db_session)
