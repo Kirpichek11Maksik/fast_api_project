@@ -1,18 +1,19 @@
 from typing import Annotated
-
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, status
 from sqlalchemy import delete
 from database.models import Supply
+from service.supply_service import SupplyService
 from schema.supply_models import Supply as supply_models
 from repository.supply_repository import SupplyRepository
-from depency import get_suplies_repository
+from depency import get_suplies_repository, get_cache_repository, get_supplies_service
+from repository.cache_repository import CacheRepository
 
 
 router = APIRouter(prefix="/supply", tags=["supply"])
 
 @router.get("/supplies")
-async def get_supplies(supply_repo: Annotated[SupplyRepository, Depends(get_suplies_repository)]):
-    return supply_repo.get_supplies()
+async def get_supplies(supplies_service: Annotated[SupplyService, Depends(get_supplies_service)]):
+    return supplies_service.get_supplies()
 
 @router.get("/{supply_id}")
 async def get_supply(supply_id: int, supply_repo: Annotated[SupplyRepository, Depends(get_suplies_repository)]):

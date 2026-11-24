@@ -25,6 +25,9 @@ class Supply(BaseModel):
     supplier: str
     data_supply: date
 
+    class Config:
+        from_attributes = True
+
     @model_validator(mode="after")
     def validate_bracket(self) -> "Supply":
         if self.device_type == DeviceType.BRACKET and self.brand != Brand.MAXIM:
