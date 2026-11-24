@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, status
 from sqlalchemy import delete
-from database.models import Supply
+from models.supply import Supply
 from service.supply_service import SupplyService
 from schema.supply_models import Supply as supply_models
 from repository.supply_repository import SupplyRepository

@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import Depends, APIRouter, HTTPException
-from database.models import Device
+from models.device import Device
 from schema.device_models import Device as device_models
 from depency import DeviceRepository, get_devices_repository
 
