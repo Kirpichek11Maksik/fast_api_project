@@ -1,8 +1,8 @@
 
 from sqlalchemy import delete, select, func
 from sqlalchemy.orm import Session
-from database.database import get_db_session
-from database.models import Device, Supply
+from database.accessor import get_db_session
+from models import Device, Supply
 from handlers import supply
 
 
