@@ -1,3 +1,6 @@
 from service.supply_service import SupplyService
-from service.user import UserService
-__all__ = ['SupplyService', 'UserService']
+from service.user_service import UserService
+from service.device_service import DeviceService
+from service.cache_service import CacheServiceSupply, CacheServiceDevice
+from service.auth_service import AuthService
+__all__ = ['SupplyService', 'UserService', 'DeviceService', 'CacheServiceSupply', 'AuthService', 'CacheServiceDevice']
