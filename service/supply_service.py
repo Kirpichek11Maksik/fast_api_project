@@ -2,12 +2,12 @@ from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 from models import Devices, Supply
 from schema.supply_models import Supply as SupplySchema
-from service.cache_service import CacheService
+from service.cache_service import CacheServiceSupply
 
 
 
 class SupplyService:
-    def __init__(self, session: Session, supply_cache: CacheService):
+    def __init__(self, session: Session, supply_cache: CacheServiceSupply):
         self.session = session
         self.supply_cache = supply_cache
 

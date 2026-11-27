@@ -21,6 +21,8 @@ class Devices(Base):
     ser_number: Mapped[str] = mapped_column(unique=True)
     capacity_device: Mapped[dict] = mapped_column(JSON)
     supply_id: Mapped[int] = mapped_column(ForeignKey("supplies.id"))
+    user_id: Mapped[id] = mapped_column(ForeignKey("UserProfile.id"), nullable=False)
+
 
 
 class Supply(Base):

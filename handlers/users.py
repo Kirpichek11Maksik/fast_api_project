@@ -5,7 +5,7 @@ from service.user_service import UserService
 from fastapi import APIRouter, Depends, HTTPException
 from schema.user import UserCreateSchema, UserLoginSchema
 from service.auth_service import AuthService
-from depency import get_auth_service
+from depency import get_auth_service, get_request_user_id
 
 
 router = APIRouter(prefix="/user", tags=["user"])
@@ -17,6 +17,7 @@ router = APIRouter(prefix="/user", tags=["user"])
 def create_user(
     body: UserCreateSchema,
     auth_service: Annotated[AuthService, Depends(get_auth_service)],
+    user_id: int = Depends(get_request_user_id)
 ):
     return auth_service.register(body.username, body.password)
 

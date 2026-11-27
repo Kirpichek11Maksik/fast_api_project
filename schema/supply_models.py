@@ -18,6 +18,7 @@ class Brand(str, Enum):
 
 
 class Supply(BaseModel):
+    id: int
     quantity: int
     device_type: DeviceType
     brand: Brand
@@ -34,3 +35,10 @@ class Supply(BaseModel):
             raise ValueError("Бренд кронштейнов только Maxim")
         return self
 
+class CreateSupplySchema(BaseModel):
+    quantity: int
+    device_type: DeviceType
+    brand: Brand
+    unit_price: Decimal
+    supplier: str
+    data_supply: date

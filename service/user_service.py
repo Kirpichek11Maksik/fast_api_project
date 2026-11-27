@@ -1,3 +1,4 @@
+from fastapi import Request, Security, security
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from models import UserProfile
@@ -23,3 +24,4 @@ class UserService:
         return self.session.scalar(
             select(UserProfile).where(UserProfile.username == username)
         )
+
